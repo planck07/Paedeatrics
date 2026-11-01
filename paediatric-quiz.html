@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Paediatric optometry quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f8f9;--card:#fff;--ink:#10343d;--mute:#56747b;--line:#cfe0e3;--teal:#1b7f8c;--tealbg:#d9eef0;--bad:#a8402f;--good:#2b7a4b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f2429;--card:#16333a;--ink:#e4f1f3;--mute:#9bb8be;--line:#2a4a52;--teal:#5cc3cf;--tealbg:#1f4a52;--bad:#f0a090;--good:#8bd3a6}}
+:root[data-theme="dark"]{--bg:#0f2429;--card:#16333a;--ink:#e4f1f3;--mute:#9bb8be;--line:#2a4a52;--teal:#5cc3cf;--tealbg:#1f4a52;--bad:#f0a090;--good:#8bd3a6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Source Sans 3",system-ui,sans-serif}
+main{max-width:560px;margin:0 auto;padding:28px 18px 48px}
+h1{font:500 30px/1.15 Fraunces,Georgia,serif;margin:0 0 10px}
+p{margin:0 0 14px}
+.mute{color:var(--mute);font-size:15px}
+button{font:600 17px "Source Sans 3",system-ui,sans-serif;min-height:48px;padding:0 20px;border-radius:8px;border:1.5px solid var(--teal);background:var(--teal);color:#fff;cursor:pointer;width:100%}
+button.opt{background:var(--card);color:var(--ink);border:1.5px solid var(--line);text-align:left;margin:0 0 10px;padding:12px 16px;font-weight:400;height:auto;user-select:none}
+button.opt.sel{border-color:var(--teal);background:var(--tealbg)}
+button.alt{background:var(--card);color:var(--teal)}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+input{width:100%;min-height:48px;padding:0 14px;font:400 17px "Source Sans 3",system-ui,sans-serif;border:1.5px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);margin:0 0 14px}
+.err{color:var(--bad);font-size:15px;min-height:22px;margin:4px 0 10px}
+.top{display:flex;justify-content:space-between;font-size:15px;color:var(--mute)}
+.bar{height:5px;background:var(--line);border-radius:3px;margin:8px 0 22px}
+.bar i{display:block;height:5px;background:var(--teal);border-radius:3px}
+.q{font:500 22px/1.3 Fraunces,Georgia,serif;margin:0 0 18px;user-select:none}
+.row{display:flex;gap:10px;margin:0 0 12px}.row button{flex:1}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:0 0 16px}
+button.qn{padding:0;min-height:46px;background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+button.qn.done{background:var(--teal);color:#fff;border-color:var(--teal)}
+button.qn.cur{box-shadow:0 0 0 3px var(--ink)}
+.rv{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0 0 12px}
+.rv .rq{font-weight:600;margin:0 0 8px}
+.rv p{margin:0 0 6px;font-size:16px}
+.no{color:var(--bad)}.yes{color:var(--good)}
+.code{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:16px;word-break:break-word;margin:0 0 14px}
+a.btn{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:8px;background:var(--teal);color:#fff;text-decoration:none;font-weight:600;margin-top:4px}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .25s}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+var WKEY="f9393b69-9fd1-45c3-bbf0-1e9ffa293d7b",CH=260620620,LIMIT=3900,SK="paedvd60";
+var Q=[["A newborn's vision is poor mainly because:", ["The eyes can't focus at all", "The retina is absent", "The visual centres of the brain are immature", "The optic nerve is missing"], 2, "Visual centres mature as the eye is stimulated by visual input. Poor newborn vision is due mainly to this immaturity."], ["The critical period of visual development is roughly:", ["The first 3–4 months of life", "Only the time before birth", "The first two weeks", "The first 12 years"], 0, "Vision improves very rapidly in the first three months, and interference in this period can lead to abnormal development."], ["A baby is born with a dense congenital cataract. Why is early treatment so important?", ["Cataracts only block the pupil", "Cataracts shorten the eye", "Cataracts always cause glaucoma", "A blurred image in the critical period leads to underdevelopment of visual centres"], 3, "Good vision depends on well-focused images during the critical period, so correctable conditions such as cataract and uncorrected refractive error must be recognised early."], ["Compared with an adult, the cornea at birth is:", ["Smaller and flatter", "Flatter, steepening with age", "Steeper, flattening to adult values by about 1 year", "The same as an adult's"], 2, "Keratometry falls from about 52 D at birth towards adult values by 1 year."], ["Compared with an adult lens, the newborn lens is:", ["Cloudy", "More spherical, with higher dioptric power", "Disc-like, with lower power", "Flat and thin"], 1, "As the lens grows it increases more in diameter than thickness, so it becomes less spherical and its power decreases. This matters when planning intraocular lenses for infants."], ["Which describes the refractive state of a newborn?", ["Myopic at birth and staying myopic", "Hyperopic, shifting towards emmetropia by about 12 years", "Astigmatic only", "Emmetropic at birth"], 1, "The refractive state changes as the axial length increases and the cornea and lens flatten."], ["Which milestone is expected by 3–4 months?", ["Reading letters", "Full vertical gaze developed", "Adult-level acuity", "Eyes orthotropic, with fix-and-follow responses to a small toy"], 3, "By this age smooth pursuit asymmetry should have resolved. Vertical gaze becomes fully functional at about 6 months."], ["About two-thirds of newborns show what that mostly resolves by 2–3 months?", ["Nystagmus", "Cataract", "Intermittent strabismus", "Ptosis"], 2, "This is a normal feature of early eye muscle immaturity."], ["Why is the VEP the preferred test for neonates and young infants?", ["It tests only the peripheral retina", "It needs dilated pupils", "It is objective and doesn't need the child's active participation", "It requires the child to name pictures"], 2, "It measures electrical activity from the scalp in response to visual stimulation and evaluates maturation of cortical visual processes."], ["Which is the correct Teller acuity card test distance for infants from birth to 6 months?", ["38 cm", "6 m", "55 cm", "84 cm"], 0, "The distance is 55 cm for ages 7 months to 3 years and 84 cm for 3 years and older."], ["Saccades in a newborn are:", ["Present but hypometric with a longer latency", "Hypermetric", "Absent", "Already adult-like"], 0, "Eye movements are adult-like by about 5 months of age."], ["Infants aged 1–3 months can accommodate inaccurately yet still see reasonably well because they have:", ["A large depth of focus", "Larger pupils than adults", "Myopic eyes", "No accommodation at all"], 0, "The smaller eye and pupil give a large depth of focus, which reduces the stimulus to accommodate."], ["Newborn visual acuity is in the region of:", ["6/18", "6/180 or poorer", "6/6", "6/60 exactly"], 1, "Acuity improves rapidly from birth to 6 months, then slowly refines towards adult levels."], ["Which method may show adult-like acuity by about 6 months while overestimating the whole visual system?", ["HOTV matching", "Snellen letters", "VEP", "Preferential looking"], 2, "VEP assesses the response only up to the primary visual cortex, not further maturation in higher cortical levels."], ["Clinical tests such as preferential looking and letter or picture matching give adult-like acuity values at about:", ["12 years", "4–6 years", "6 months", "1 year"], 1, "The age depends on the method used."], ["A grating of 30 cycles per degree corresponds to a Snellen equivalent of:", ["6/60", "6/30", "6/6", "6/180"], 2, "6 cpd is 6/30, and 1 cpd is 6/180."], ["A higher spatial frequency means:", ["Coarser detail", "Lower contrast", "Fewer cycles per degree", "More cycles per degree and finer detail"], 3, "A doubling or halving of spatial frequency is one octave."], ["Compared with an adult, infant foveal cones are:", ["Longer and wider", "The same shape but fewer", "Longer, thinner and more numerous", "Shorter, fatter and fewer"], 3, "This gives poorer sampling and less efficient funnelling of light."], ["Why is the neonatal eye's small size a disadvantage for acuity?", ["The depth of focus is lost", "The Nyquist limit is higher", "There is more image magnification", "There is less image magnification"], 3, "A smaller eye discriminates detail less well."], ["Poor optics are not considered a major cause of poor infant acuity because:", ["The optics are identical to an adult's", "Infants don't have a cornea", "The infant lens is flat", "Clear focused images of the infant fundus can be captured"], 3, "If the fundus can be clearly seen on ophthalmoscopy, the optics must be reasonably good."], ["Retinal models predict infant grating acuity about 2 octaves worse than adults, but measured values are 3.5–4.5 octaves worse. What does this show?", ["Optics explain the extra deficit", "The retina fully explains the deficit", "Immaturity beyond the retina also limits acuity", "Measurements are unreliable"], 2, "Cortical immaturity, including incomplete myelination, contributes alongside retinal immaturity."], ["Synapses in the visual cortex:", ["Proliferate from 2–8 months, then are pruned until about 11 years", "Appear only after 11 years", "Fall steadily from birth", "Stay constant throughout life"], 0, "An 8-month-old has more synapses than an adult, and pruning rationalises the connections."], ["Lateral inhibition refers to:", ["Colour opponency", "Myelination of the optic nerve", "Antagonistic interaction between adjacent regions of a sensory surface", "Spreading of excitation between neighbouring cells"], 2, "Maturation of these inhibitory responses appears to explain improvement in grating acuity not accounted for by the retina."], ["Which test result depends more on infant attention, motivation and examiner skill?", ["Both equally", "Preferential looking", "VEP", "Neither"], 1, "VEP requires little cognitive input from the infant."], ["Which three functions are linked to the onset of stereopsis?", ["Visual acuity, vergence and accommodation", "Colour vision, contrast and motion", "Pupil size, lens power and axial length", "Fixation, pursuit and saccades"], 0, "The infant must see the target, align the eyes and focus, though stereopsis is not limited by or tied to them."], ["Crossed stereopsis is perceived as:", ["A flat target", "A target sinking behind the background", "A target looming towards the observer", "A target moving sideways"], 2, "Uncrossed stereopsis is when the target sinks behind the background or away from the observer."], ["Which type of stereopsis matures more rapidly in infancy?", ["Crossed", "Neither", "Both at the same rate", "Uncrossed"], 0, "Sensitivity to the two types differs in infancy."], ["Which physiological factor correlates best with the onset of stereopsis?", ["Segregation of ocular dominance columns in the primary visual cortex", "Pupil size", "Retinal resolution", "Visual acuity"], 0, "Visual acuity and retinal resolution don't appear to limit stereoscopic development."], ["In stage one of Held's model, the infant lacks stereopsis because:", ["The retina is immature", "The eyes are misaligned", "Eye-of-origin information is lost at the cortical level", "The pupils are small"], 2, "Axons from both eyes synapse on the same binocular cells, so the origin of the information isn't retained."], ["In stage one, axons from both eyes synapse on the same binocular cells in:", ["The optic chiasm", "The retina", "Layer IV of the visual cortex", "The LGN"], 2, "The response is summed from stimulation of both eyes."], ["Under dissociated viewing, infants under 3–4 months prefer the rivalrous screen because:", ["They are strabismic", "It is more comfortable to look at", "They perceive true rivalry", "They perceive a combination of the gratings with more contours"], 3, "The combined horizontal and vertical grating is more interesting."], ["Infants over 3–4 months prefer the fusible grating screen because:", ["They are bored", "Rivalrous gratings are disturbing and the fused screen is more comfortable to fixate", "They can't see colour", "The fused screen has more contours"], 1, "This suggests they are now perceiving rivalry."], ["What happens in stage two of Held's model?", ["Ocular dominance columns segregate, preserving eye-of-origin information so disparity can be detected", "The columns merge", "The pupils constrict", "The retina matures"], 0, "This allows binocular cells to compare input from the two eyes."], ["Ocular dominance columns are partially segregated by about:", ["4 months", "2 years", "Birth", "10 years"], 0, "Segregation is complete by about 6 months."], ["Gross stereopsis is present by about:", ["2 years", "5 years", "Birth", "3–4 months"], 3, "Finer, more mature stereoscopic responses appear by 6 months."], ["Adults with normal vision viewing rivalrous gratings usually:", ["Suppress both gratings", "See a three-dimensional image", "Alternate between the two and find it uncomfortable", "See a stable fused image"], 2, "The normal system perceives one grating or the other, with predominance in those with a strongly dominant eye."], ["Which is the appropriate cycloplegic for paediatric refraction?", ["Phenylephrine", "Cyclopentolate", "Tropicamide", "Fluorescein"], 1, "Tropicamide leaves residual accommodative facility, so it is unsuitable."], ["After instilling a cycloplegic, how long is it usual to wait before retinoscopy?", ["About 24 hours", "About 2 minutes", "About 30 minutes", "About 3 hours"], 2, "Check that the pupil is dilated before refracting."], ["After cycloplegic drops, parents should be told that accommodation is impaired for about:", ["30 minutes", "Permanently", "1 week", "3 hours, while pupil dilation may last up to 24 hours"], 3, "The child is also left with blur for near tasks."], ["Cycloplegic refraction is contraindicated in a child with:", ["Developmental delay", "Abnormal anterior chamber structure, such as glaucoma or aniridia", "Suspected squint", "Down syndrome"], 1, "It is not contraindicated in developmental delay or Down syndrome."], ["Why is cycloplegic retinoscopy the gold standard?", ["It is the fastest method", "It needs no cooperation", "It controls accommodation and reveals latent hyperopia", "It is painless"], 2, "Disadvantages are discomfort, longer testing time and blur afterwards."], ["When is cycloplegic retinoscopy especially recommended?", ["Only for school-age children", "Never when squint is suspected", "Only for adults", "At a pre-school child's first test, with suspected squint, or before prescribing glasses"], 3, "It ensures the full level of hyperopia is found."], ["Mohindra near retinoscopy is performed at:", ["6 m in a bright room", "25 cm in a bright room", "50 cm in a totally dark room", "1 m with room lights on"], 2, "A dim retinoscope light is a poor stimulus, so accommodation relaxes to its tonic level."], ["In Mohindra retinoscopy, the correction factor removed for a child over 24 months is:", ["1.00 D", "0.75 D", "2.00 D", "0.50 D"], 0, "For infants under 24 months the factor is 0.75 D."], ["Why is the eye not being tested occluded during Mohindra retinoscopy?", ["To dilate it", "To dim the room", "To keep the eye warm", "To prevent convergence-induced accommodation"], 3, "The practitioner also checks pupil dilation and stability of the reflex, and uses a cycloplegic if in doubt."], ["In dynamic retinoscopy, a 'with' movement at the target distance indicates:", ["Hyperopia only", "A lag of accommodation (under-accommodation)", "A lead of accommodation", "Accurate accommodation"], 1, "A neutral reflex is accurate accommodation, and 'against' is a lead."], ["A target at 25 cm (4 D demand) is held, and neutral is found with the retinoscope at 40 cm (2.50 D). What is the accommodative lag?", ["0.75 D", "1.50 D", "2.50 D", "4.00 D"], 1, "Lag = demand minus response = 4.00 − 2.50 = 1.50 D."], ["A child with Down syndrome has reduced accommodation. Which prescription may help?", ["Atropine", "Patching", "Prism", "Bifocal spectacles"], 3, "Bifocals give clear near vision, with the segment fitted high for children."], ["What does 'infant brains learn to see' imply?", ["Normal visual experience is needed for normal visual development", "Experience has no effect", "Vision is hard-wired at birth", "Only genetics matters"], 0, "Barriers such as ptosis or infant cataract stop the affected eye learning to see properly."], ["Plasticity means:", ["The malleable nature of the visual system, which experience can shape", "Resistance to change", "Rigid wiring", "Loss of vision"], 0, "It is not infinite and is considered in relation to the critical period."], ["The critical period for visual acuity treatment extends to about:", ["7–8 years", "20 years", "2 weeks", "1 year"], 0, "After this, treatment of amblyopia has limited effect."], ["Over-enthusiastic patching in a young child can cause:", ["Occlusion amblyopia in the originally non-amblyopic eye", "Myopia only", "Strabismus only", "Cataract"], 0, "This risk is greatest up to about 2.5–3 years."], ["After monocular deprivation in Hubel and Wiesel's experiments, the visual cortex showed:", ["More cells for the deprived eye", "Equal loss of cells for both eyes", "Far fewer cells representing the deprived eye", "No change"], 2, "The cortical representation of the non-deprived eye far outweighed that of the deprived eye."], ["How did Hubel and Wiesel reveal the ocular dominance columns?", ["By injecting radioactive tracer into one eye and examining the post-mortem cortex", "By MRI scanning", "By VEP recordings alone", "By fitting contact lenses"], 0, "Fluorescing cells in the cortex corresponded to the injected eye."], ["Visual acuity in a deprived eye improved when the non-deprived eye was removed. This shows:", ["The deprived eye was normal", "Enucleation causes growth of visual cortex", "Acuity is unrelated to the other eye", "Active inhibition by the stronger non-deprived eye"], 3, "The visual system develops competitively, and an occluded eye still competes with the deprived eye."], ["For the same length of monocular deprivation, onset earlier in the critical period:", ["Has a more dramatic effect", "Has a milder effect", "Has no effect", "Matters only in adults"], 0, "Early deprivation is the most damaging."], ["Earlier reversal of deprivation leads to:", ["No recovery", "Slower recovery", "Quicker and more complete recovery", "Permanent loss"], 2, "Reversal must occur within the sensitive period."], ["For deprivation at the same developmental stage, a longer duration:", ["Improves vision", "Causes less disruption", "Makes no difference", "Causes proportionally more disruption"], 3, "Prompt treatment is important, particularly in early-onset conditions."], ["A visually disruptive congenital cataract is routinely removed in the UK before:", ["Seven years of age", "Two months of age", "Two years of age", "Twelve months of age"], 1, "This maximises the chance of a good visual outcome."], ["Why is it sensible that cortical connections are not adult-like at birth?", ["They must change as retinal structure, eye size and eye position change with growth", "The eyes don't grow", "Infants lack neurons", "They are irrelevant to growth"], 0, "Functions that mature more slowly are more at risk from abnormal visual experience."]];
+var app=document.getElementById("app"),order,i,end,tmr,active=false,t0,picks=[],sw=0,nm="";
+function hs(t){var x=5381;for(var k=0;k<t.length;k++){x=((x<<5)+x+t.charCodeAt(k))>>>0;}return x;}
+function shuffle(a){for(var x=a.length-1;x>0;x--){var j=Math.floor(Math.random()*(x+1)),t=a[x];a[x]=a[j];a[j]=t;}return a;}
+function sget(){try{return JSON.parse(localStorage.getItem(SK));}catch(e){return null;}}
+function sset(v){try{localStorage.setItem(SK,JSON.stringify(v));}catch(e){}}
+function p2(n){return String(n).padStart(2,"0");}
+function mmss(ms){var s=Math.max(0,Math.floor(ms/1000));return p2(Math.floor(s/60))+":"+p2(s%60);}
+function gate(){
+ var s=sget();
+ if(s&&s.done){showResult(s,false);return;}
+ if(s&&s.started){app.innerHTML='<h1>Quiz already started</h1><p>This quiz was started on this device and can\'t be restarted. Contact your instructor.</p><p class="mute">Started by '+s.name+'.</p>';return;}
+ app.innerHTML='<h1>Paediatric optometry quiz</h1><p class="mute">Visual development, acuity, stereopsis, refraction and accommodation</p><p>'+Q.length+' multiple-choice questions, '+(LIMIT/60)+' minutes. One attempt. You can go back and change answers before you submit, and afterwards you will see all your answers, right and wrong, with explanations for the ones you missed.</p><label for="nm" class="mute">Your full name</label><input id="nm" autocomplete="name" placeholder="Ama Mensah"><label for="pw" class="mute">Access code from your instructor</label><input id="pw" type="password" autocomplete="off"><div class="err" id="err" role="alert"></div><button id="go">Start quiz</button>';
+ var err=document.getElementById("err");
+ document.getElementById("go").onclick=function(){
+  var name=document.getElementById("nm").value.trim();
+  if(!name){err.textContent="Enter your name first.";return;}
+  if(hs(document.getElementById("pw").value.trim().toLowerCase())!==CH){err.textContent="That access code isn't right. Check it and try again.";return;}
+  begin(name);
+ };
+}
+function begin(name){
+ var idx=[];for(var k=0;k<Q.length;k++){idx.push(k);}
+ order=shuffle(idx).map(function(n){var o=Q[n][1].map(function(t,j){return {t:t,o:j};});return {n:n,q:Q[n][0],opts:shuffle(o)};});
+ picks=[];for(var z=0;z<Q.length;z++){picks.push(-1);}
+ i=0;sw=0;active=true;nm=name;t0=Date.now();end=t0+LIMIT*1000;
+ sset({started:t0,name:name});
+ tmr=setInterval(function(){var el=document.getElementById("tm"),l=end-Date.now();if(el){el.textContent=mmss(l);}if(l<=0){finish();}},1000);
+ ask();
+}
+function head(){
+ var d=0;for(var k=0;k<picks.length;k++){if(picks[k]>=0){d++;}}
+ return {done:d,html:'<div class="top"><span>'+d+' of '+Q.length+' answered</span><span>Time left <b id="tm">'+mmss(end-Date.now())+'</b></span></div><div class="bar"><i style="width:'+Math.round(d/Q.length*100)+'%"></i></div>'};
+}
+function ask(){
+ var d=order[i],h=head().html;
+ h+='<p class="mute">Question '+(i+1)+' of '+Q.length+'</p><p class="q">'+d.q+'</p>';
+ for(var k=0;k<d.opts.length;k++){h+='<button class="opt'+(picks[i]===k?' sel':'')+'" data-k="'+k+'">'+d.opts[k].t+'</button>';}
+ h+='<div class="row">'+(i>0?'<button id="bk" class="alt">Back</button>':'')+'<button id="nx">'+(i<Q.length-1?'Next':'Review')+'</button></div><button id="all" class="alt">All questions</button><p class="mute" style="margin-top:14px">Leaving this tab is recorded.</p>';
+ app.innerHTML=h;
+ var o=app.querySelectorAll(".opt");
+ for(var n=0;n<o.length;n++){o[n].onclick=function(){picks[i]=+this.getAttribute("data-k");ask();};}
+ var bk=document.getElementById("bk");if(bk){bk.onclick=function(){i--;ask();};}
+ document.getElementById("nx").onclick=function(){if(i<Q.length-1){i++;ask();}else{overview();}};
+ document.getElementById("all").onclick=overview;
+}
+function overview(){
+ var hd=head(),left=Q.length-hd.done,conf=false;
+ var h=hd.html+'<h1 style="font-size:24px">All questions</h1><p class="mute">Filled numbers are answered. Outlined numbers are not answered yet. Tap a number to open that question.</p><div class="grid">';
+ for(var k=0;k<Q.length;k++){h+='<button class="qn'+(picks[k]>=0?' done':'')+(k===i?' cur':'')+'" data-q="'+k+'" aria-label="Question '+(k+1)+(picks[k]>=0?', answered':', not answered')+'">'+(k+1)+'</button>';}
+ h+='</div><div class="err" id="err" role="alert"></div><div class="row"><button id="rt" class="alt">Back to question</button><button id="sub">Submit quiz</button></div>';
+ app.innerHTML=h;
+ var g=app.querySelectorAll(".qn");
+ for(var n=0;n<g.length;n++){g[n].onclick=function(){i=+this.getAttribute("data-q");ask();};}
+ document.getElementById("rt").onclick=ask;
+ document.getElementById("sub").onclick=function(){
+  if(left>0&&!conf){conf=true;document.getElementById("err").textContent=left+" question"+(left>1?"s are":" is")+" not answered. Tap Submit quiz again to submit anyway.";return;}
+  finish();
+ };
+}
+function finish(){
+ if(!active){return;}
+ active=false;clearInterval(tmr);
+ var score=0,rev=[],answered=0;
+ for(var k=0;k<order.length;k++){
+  var e=order[k],c=picks[k]>=0?e.opts[picks[k]]:null,d=Q[e.n],ok=!!c&&c.o===d[2];
+  if(c){answered++;}
+  if(ok){score++;}
+  rev.push([e.n+1,d[0],c?c.t:"Not answered",d[1][d[2]],ok?"":d[3],ok?1:0]);
+ }
+ rev.sort(function(a,b){return a[0]-b[0];});
+ var used=mmss(Math.min(Date.now(),end)-t0);
+ var code=nm+" | "+score+"/"+Q.length+" | tab leaves: "+sw+" | time used: "+used;
+ var s={started:t0,name:nm,done:1,score:score,total:Q.length,code:code,review:rev};
+ sset(s);
+ showResult(s,true);
+ var fail="Couldn't send automatically. Send the result code below to your instructor.";
+ if(WKEY.indexOf("PASTE")===0){setStatus(fail);return;}
+ setStatus("Sending your result…");
+ var missed=rev.filter(function(r){return !r[5];}).map(function(r){return r[0];}).join(", ");
+ try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:WKEY,subject:"Paediatric optometry quiz result: "+nm,name:nm,score:score+" / "+Q.length,answered:answered,missed_question_numbers:missed||"none",tab_leaves:sw,time_used:used})}).then(function(r){return r.json();}).then(function(d){setStatus(d&&d.success?"Your result was sent to your instructor.":fail);}).catch(function(){setStatus(fail);});}catch(e){setStatus(fail);}
+}
+var statusMsg="";
+function setStatus(t){statusMsg=t;var el=document.getElementById("st");if(el){el.textContent=t;}}
+function showResult(s,fresh){
+ var r=s.review||[],wrong=0;
+ for(var k=0;k<r.length;k++){if(!r[k][5]){wrong++;}}
+ var only=false;
+ function draw(){
+  var h='<h1>You scored '+s.score+' / '+s.total+'</h1><p class="mute" id="st">'+(fresh?statusMsg:"Your result was already submitted on this device.")+'</p>';
+  h+='<h2 style="font:500 22px Fraunces,Georgia,serif;margin:18px 0 6px">Your answers</h2><p class="mute">'+s.score+' correct, '+wrong+' wrong or unanswered. Correct answers are marked. Each wrong one shows the right answer and why.</p><div class="row"><button id="fa" class="'+(only?'alt':'')+'">All questions</button><button id="fw" class="'+(only?'':'alt')+'">Wrong only</button></div>';
+  for(var k=0;k<r.length;k++){
+   if(only&&r[k][5]){continue;}
+   if(r[k][5]){h+='<div class="rv"><p class="rq">'+r[k][1]+'</p><p class="yes"><b>Correct:</b> '+r[k][3]+'</p></div>';}
+   else{h+='<div class="rv"><p class="rq">'+r[k][1]+'</p><p class="no">Your answer: '+r[k][2]+'</p><p class="yes">Correct answer: '+r[k][3]+'</p><p><b>Why:</b> '+r[k][4]+'</p></div>';}
+  }
+  h+='<p>Your result code:</p><div class="code">'+s.code+'</div><button id="cp" class="alt">Copy result code</button><div class="err" id="cerr"></div><a class="btn" href="quit.html">Exit exam</a>';
+  app.innerHTML=h;
+  document.getElementById("fa").onclick=function(){only=false;draw();};
+  document.getElementById("fw").onclick=function(){only=true;draw();};
+  document.getElementById("cp").onclick=function(){var m=document.getElementById("cerr");try{navigator.clipboard.writeText(s.code).then(function(){m.textContent="Copied.";},function(){m.textContent="Select the code above and copy it.";});}catch(e){m.textContent="Select the code above and copy it.";}};
+ }
+ draw();window.scrollTo(0,0);
+}
+document.addEventListener("visibilitychange",function(){if(active&&document.hidden){sw++;}});
+document.addEventListener("contextmenu",function(e){if(active){e.preventDefault();}});
+document.addEventListener("copy",function(e){if(active){e.preventDefault();}});
+gate();
+</script>
+</body>
+</html>
